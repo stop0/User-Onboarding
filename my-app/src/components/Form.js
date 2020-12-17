@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
+import axios from "axios";
 
 
 
@@ -33,13 +34,31 @@ function Form() {
     terms: Yup
       .boolean()
       .oneOf([true], "You must accept Terms and Conditions")
-      // required isn't required for checkboxes.
   });
 
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    password: ""
+  });
 
+  const [post, setPost] = useState([]);
 
+  const formSubmit = event =>{
+    event.preventDefault();
+    console.log("submit")
+    axios
+    .post("https://reqres.in/api/users",formState)
+    .then(res => {
+        console.log(res.data)
+        setPost(res.data)
+    })
+    .catch(err => {
+      console.log(err); 
+    });
+  
 
-
+  }
 
 
 
@@ -50,7 +69,10 @@ function Form() {
 
 
   return (
+      
     <div className="App">
+              <pre>{JSON.stringify(post, null, 2)}</pre>
+
       {console.log(user)}
       <form onSubmit={event => handleSubmit(event)}>
         <label>
