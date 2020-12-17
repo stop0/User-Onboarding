@@ -6,22 +6,6 @@ import Form from './components/Form'
 
 
 
-const initialFromValue ={
-  Name:"",
-  Email:"",
-  Password:"",
-  TermsofService:false,
-
-};
-
-
-const initialFromErrors = {
-  Name:"",
-  Email:"",
-  Password:"",
-  TermsofService:"",
-
-};
 
 
 
