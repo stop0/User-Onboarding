@@ -1,120 +1,58 @@
 import React, { useEffect, useState } from "react";
-import * as Yup from "yup";
-import axios from "axios";
 
 
 
 
-
-function Form() {
-  const [user, setUser] = useState({ name: "", email:"", password: "", terms:false });
-
-  const handleChange = event => {
-    setUser({ ...user, [event.target.name]: event.target.value });
-  };
-
-  const handleSubmit = event => {
-    event.preventDefault();
-    console.log(user.name);
-    console.log(user.password);
-  };
-
-  const formSchema = Yup.object().shape({
-    name: Yup
-      .string()
-      .required("Must include Name."),
-    email: Yup
-      .string()
-      .email("Must be a valid email address.")
-      .required("Must include email address."),
-    password: Yup
-      .string()
-      .required("Password is Required")
-      .min(6, "Passwords must be at least 6 characters long."),
-    terms: Yup
-      .boolean()
-      .oneOf([true], "You must accept Terms and Conditions")
-  });
-
-  const [formState, setFormState] = useState({
-    name: "",
-    email: "",
-    password: ""
-  });
-
-  const [post, setPost] = useState([]);
-
-  const formSubmit = event =>{
-    event.preventDefault();
-    console.log("submit")
-    axios
-    .post("https://reqres.in/api/users",formState)
-    .then(res => {
-        console.log(res.data)
-        setPost(res.data)
-    })
-    .catch(err => {
-      console.log(err); 
-    });
-  
-
-  }
-
-
-
-
-
-
-
-
-
+ function Form(props) {
+  const { formValues, change, submit, Disabled } = props;
   return (
-      
-    <div className="App">
-              <pre>{JSON.stringify(post, null, 2)}</pre>
-
-      {console.log(user)}
-      <form onSubmit={event => handleSubmit(event)}>
-        <label>
-          Name:
+    <div>
+      <form onSubmit={submit}>
+        <label htmlFor="name">
+          Name
           <input
+            className = "Name"
             type="text"
             name="name"
-            value={user.name}
-            onChange={event => handleChange(event)}
+            value={formValues.name}
+            onChange={change}
           />
         </label>
-        <label>
-        Email:
+        <label htmlFor="email">
+          Email
           <input
-            type="text"
+            className = "email"
+            type="email"
             name="email"
-            value={user.email}
-            onChange={event => handleChange(event)}
+            value={formValues.email}
+            onChange={change}
           />
         </label>
-        <label>
-          Password:
+        <label htmlFor="name">
+          Password
           <input
-            type="text"
+            className = "password"
+            type="password"
             name="password"
-            value={user.password}
-            onChange={event => handleChange(event)}
+            value={formValues.password}
+            onChange={change}
           />
         </label>
-        <label>
-        Terms of Service:
+        <label htmlFor="name">
+          Terms of Service
           <input
+            className = "terms"
             type="checkbox"
-            name="term"
-            value={user.term}
-            onChange={event => handleChange(event)}
+            name="terms"
+            value={formValues.terms}
+            onChange={change}
           />
         </label>
-        <button>Submit!</button>
+        <button className = 'submit' disabled={Disabled}>Submit</button>
       </form>
+      
     </div>
   );
 }
 
-export default Form;
+export default Form
