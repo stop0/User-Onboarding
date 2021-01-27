@@ -4,6 +4,7 @@ import * as yup from "yup";
 import formSchema from "./components/formSchema";
 import axios from "axios";
 import './App.css'
+import styled from 'styled-components'
 
 const defaultValues = {
   name: "",
@@ -24,7 +25,10 @@ function App() {
   const [errors, setErrors] = useState(defaultErrors);
   const [Disabled, setDisabled] = useState(true);
   const [post, setPost] = useState([]);
-  const change = (evt) => {
+
+
+
+  const handleChange = (evt) => {
     const { name, value } = evt.target;
     validate(name, value);
     setFormValues({
@@ -33,11 +37,17 @@ function App() {
         evt.target.type === "checkbox" ? evt.target.checked : evt.target.value,
     });
   };
+
+
+
+
+  
   const submit = (evt) => {
     evt.preventDefault();
     axios.post("https://reqres.in/api/users", formValues).then((res) => {
       setPost(res.data);
       console.log(res.data);
+      console.log(post)
     });
     const newData = {
       name: formValues.name.trim(),
@@ -47,6 +57,11 @@ function App() {
     setSavedFormInfo([...savedFormInfo, newData]);
     setFormValues(defaultValues);
   };
+
+
+
+
+
   const validate = (name, value) => {
     yup
       .reach(formSchema, name)
@@ -58,16 +73,25 @@ function App() {
         setErrors({ ...errors, [name]: err.errors[0] });
       });
   };
+
+
+
+
+
   useEffect(() => {
     formSchema.isValid(formValues).then((valid) => {
       setDisabled(!valid);
     });
   }, [formValues]);
+
+
+
+
   return (
     <div className="App">
       <Form
         formValues={formValues}
-        change={change}
+        handleChange={handleChange}
         submit={submit}
         Disabled={Disabled}
         errors={errors}

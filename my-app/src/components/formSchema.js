@@ -4,9 +4,9 @@ export default yup.object().shape({
   name: yup.string().required("Please Enter Your Name"),
   email: yup
     .string()
-    .email("Whatever Error Message You Want")
+    .email("Your Email is Wanted")
     .required("Please Enter Your Email"),
-  terms: yup.boolean().oneOf([true], "Whatever Error Message You Want"),
+  terms: yup.boolean().oneOf([true], "Please Check Terms of Service"),
   password: yup
     .string()
     .required("Please Enter Your Password")

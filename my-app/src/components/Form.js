@@ -1,13 +1,29 @@
 import React, { useEffect, useState } from "react";
+import styled from 'styled-components'
 
 
 
+const Form1 = styled.form`
+display:flex;
+flex-direction:column;
+box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+padding:5rem;
+margin-left:41%;
+margin-right:41%;
+`
+
+const Error = styled.div`
+color:red
+
+`
 
  function Form(props) {
-  const { formValues, change, submit, Disabled } = props;
+  const { formValues, handleChange, submit, Disabled, errors } = props;
   return (
     <div>
-      <form onSubmit={submit}>
+      
+      <Form1 onSubmit={submit}>
+      <h1>Login</h1>
         <label htmlFor="name">
           Name
           <input
@@ -15,7 +31,7 @@ import React, { useEffect, useState } from "react";
             type="text"
             name="name"
             value={formValues.name}
-            onChange={change}
+            onChange={handleChange}
           />
         </label>
         <label htmlFor="email">
@@ -25,7 +41,7 @@ import React, { useEffect, useState } from "react";
             type="email"
             name="email"
             value={formValues.email}
-            onChange={change}
+            onChange={handleChange}
           />
         </label>
         <label htmlFor="name">
@@ -35,7 +51,7 @@ import React, { useEffect, useState } from "react";
             type="password"
             name="password"
             value={formValues.password}
-            onChange={change}
+            onChange={handleChange}
           />
         </label>
         <label htmlFor="name">
@@ -45,11 +61,15 @@ import React, { useEffect, useState } from "react";
             type="checkbox"
             name="terms"
             value={formValues.terms}
-            onChange={change}
+            onChange={handleChange}
           />
         </label>
-        <button className = 'submit' disabled={Disabled}>Submit</button>
-      </form>
+        <button className = 'submit' disabled={Disabled}>Log In</button>
+        <Error> {errors.name}</Error>
+        <Error> {errors.email}</Error>
+        <Error> {errors.password}</Error>
+
+      </Form1>
       
     </div>
   );
