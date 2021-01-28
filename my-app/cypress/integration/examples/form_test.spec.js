@@ -1,6 +1,6 @@
 describe('Header Text', function() {
     it('Checks if header text exists', function () {
-    cy.visit("http://localhost:3000");
+    cy.visit("http://localhost:3001");
     cy.get('.Name')
         .type("Mohammed")
         .should('have.value','Mohammed')

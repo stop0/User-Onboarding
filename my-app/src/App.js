@@ -46,7 +46,6 @@ function App() {
     evt.preventDefault();
     axios.post("https://reqres.in/api/users", formValues).then((res) => {
       setPost(res.data);
-      console.log(res.data);
       console.log(post)
     });
     const newData = {
